@@ -1,0 +1,23 @@
+{
+  "name": "common-validator",
+  "version": "1.0.0",
+  "description": "validator for anywhere.",
+  "main": "validator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jzzj/common-validator.git"
+  },
+  "keywords": [
+    "validator",
+    "react-validator"
+  ],
+  "author": "zangzhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jzzj/common-validator/issues"
+  },
+  "homepage": "https://github.com/jzzj/common-validator#readme"
+}
