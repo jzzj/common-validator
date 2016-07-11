@@ -22,7 +22,14 @@ this.validator = new Validator({
             }
         }]
     }
-});
+}, function validateFailureHandler(key, message){
+    /*
+    do your own logic. like:
+    this.setState({
+        [key+"Msg"]: message
+    })
+    */
+}.bind(this));
 
 let result = this.validator.checkAll();
 if(result){

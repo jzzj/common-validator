@@ -1,6 +1,6 @@
 {
   "name": "common-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "validator for anywhere.",
   "main": "validator.js",
   "scripts": {

@@ -1,5 +1,5 @@
 export default class Validator{
-    constructor(config){
+    constructor(config, handler){
         /*config like this:
         config = {
             phone: {
@@ -24,6 +24,10 @@ export default class Validator{
         for(let key in config){
             //key[0] only support ie8+.
             this["get"+key.replace(/^./, key[0].toUpperCase())] = this.get(key);
+        }
+
+        if(typeof handler==='function'){
+            this.handler = handler;
         }
     }
 
@@ -89,7 +93,7 @@ export default class Validator{
                 if(this._withoutPrompt===true){
                     return false;
                 }
-                return this.error(configMessage);
+                return this.error(configMessage, key);
             }else if(value && this._checkWithEmptyCase===true){
                 return true;
             }
@@ -105,7 +109,7 @@ export default class Validator{
                     if(this._withoutPrompt===true){
                         return false;
                     }
-                    return this.error(pattern.message || configMessage);
+                    return this.error(pattern.message || configMessage, key);
                 }
             }
         }
@@ -113,6 +117,9 @@ export default class Validator{
     }
 
     error(message, key){
+        if(this.handler){
+            return this.handler(message, key);
+        }
         var type = typeof message;
         if(type==='string'){
             //do default error showing
