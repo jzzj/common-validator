@@ -1,4 +1,5 @@
-export default class Validator{
+//Usage : https://github.com/jzzj/common-validator
+export default class Validator {
     constructor(config, handler){
         /*config like this:
         config = {
@@ -23,20 +24,25 @@ export default class Validator{
         this.config = config;
         for(let key in config){
             //key[0] only support ie8+.
-            this["get"+key.replace(/^./, key[0].toUpperCase())] = this.get(key);
+            this["get"+key.replace(/^./, key[0].toUpperCase())] = this.get.bind(this, key);
         }
 
         if(typeof handler==='function'){
             this.handler = handler;
         }
+        this._validatorCaches = {};
     }
 
     get(key){
-        return function(){
-            return new Validator({
+        if(this._validatorCaches[key]){
+            return this._validatorCaches[key];
+        }else{
+            const validator = new Validator({
                 [key]: this.config[key]
-            });
-        };
+            }, this.handler);
+            this._validatorCaches[key] = validator;
+            return validator;
+        }
     }
 
     checkAll(){
@@ -132,4 +138,3 @@ export default class Validator{
         return key;
     }
 }
-
